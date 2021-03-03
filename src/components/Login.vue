@@ -13,7 +13,7 @@
       <el-row type="flex" justify="center">
         <el-col :span="5">
           <el-form-item label="账户：" prop="name">
-            <el-input v-model="user.name" size="small"></el-input>
+            <el-input v-model="user.name" onkeyup="value=value.replace(/[^\d]/g,'')" size="small"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
@@ -47,8 +47,7 @@
         user: {},
         rules: {
           name: [
-            { required: true, message: '请输入手机号', trigger: 'blur' },
-            { min: 11, max: 11, message: '长度为11个字符', trigger: 'blur' }
+            { required: true,min: 11, max: 11, message: '请输入正确的手机号', trigger: 'blur' },
           ],
           password: [{
           required: true,
@@ -80,7 +79,12 @@
               this.$http.post('/api/login',this.user).then(res=>{
                     if(res.data.code===200){
                         //登录成功
-                        this.$router.push('/info')
+                        window.localStorage.setItem("token",res.data.data.user)
+                        this.$router.push(
+                          {
+                          path:  '/info',
+                          query: res.data.data
+                            })
                      }else{
                         //登录失败
                         this.$message({
@@ -88,7 +92,6 @@
                           message: '用户名或密码错误',
                          showClose: true
                        })
-                        this.$router.push('/login')
                     }
                 })
         })

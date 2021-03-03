@@ -1,40 +1,52 @@
 <template>
-<div>
-<h2 align="center">个人信息表</h2>
-<table style="border: 1px;margin: 0 auto;background: snow" width="50%" cellpadding="5" cellspacing="0" >
-    <tr>
-        <td>姓名</td>
-        <td><input value="张俊杰" style="width:95%"></td>
-        <td>性别</td>
-        <td><select style="width: 96%">
-            <option>男</option>
-            <option>女</option>
-        </select></td>
-    </tr>
-    <tr>
-        <td>手机号码</td>
-        <td><input value="xxx" type="tel" style="width:95%"></td>
-        <td>电子邮箱</td>
-        <td><input value="xx@163.com" type="email" style="width:95%"></td>
-       <el-button type="warning"  @click="logout">注销</el-button>
-    </tr>
-</table>
-</div>
+  <div>
+    <el-table :data="tableData" border style="width: 100%">
+      <el-table-column prop="name" label="姓名" width="180"> </el-table-column>
+      <el-table-column prop="phone" label="电话" width="180"> </el-table-column>
+      <el-table-column prop="email" label="邮箱地址"> </el-table-column>
+    </el-table>
+    <el-button type="warning" @click="logout">注销</el-button>
+  </div>
 </template>
 <script>
-    export default {
-         methods: {
-            logout () {
-                this.$store.dispatch('logout').then(() => {
-                    this.$router.replace('/login')
-                })
-            }
+export default {
+  data() {
+    return {
+      tableData: [
+        {
+          name: "张俊杰",
+         phone: "12345678914",
+          email: "1542237464@qq.com"
         },
-        computed: {
-            user () {
-                return this.$store.state.user
-            }
-        }
+        {
+          name: "张俊杰",
+         phone: "12345678914",
+          email: "1542237464@qq.com"
+        },
+        {
+          name: "张俊杰",
+         phone: "12345678914",
+          email: "1542237464@qq.com"
+        },
+        {
+          name: "张俊杰",
+         phone: "12345678914",
+          email: "1542237464@qq.com"
+        },
+      ]
+    };
+  },
+  methods: {
+    logout() {
+      this.$store.dispatch("logout").then(() => {
+        this.$router.push("/login");
+      });
     }
-     
+  },
+  computed: {
+    user() {
+      return this.$store.state.user;
+    }
+  }
+};
 </script>

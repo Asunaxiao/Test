@@ -3,13 +3,11 @@ import Router from 'vue-router'
 import Main from '@/components/Main.vue'
 import Login from '@/components/Login.vue'
 import Info from '@/components/Info.vue'
+import VueRouter from 'vue-router'
 
 
 Vue.use(Router)
-
-export default new Router({
-  mode:'history',
-  routes: [
+const routes = [
     {
       path: '/',
       name: 'Main',
@@ -26,4 +24,18 @@ export default new Router({
       component: Info
     },
   ]
-})
+  const router = new VueRouter({
+    routes,
+    mode:'history',
+    linkActiveClass:'active'
+  }) 
+  router.beforeEach((to, from, next) => {
+    if (to.path === "/login") return next()
+    const token = window.localStorage.getItem("token")
+    if(!token) {
+      return next('/login')
+       }else{
+         next()
+      }
+  })
+  export default router

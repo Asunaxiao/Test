@@ -6,7 +6,12 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
 
     state: {
-        user: undefined
+        user: undefined,
+        info: [
+            {name:'张俊杰'},
+            {phone:'12345678910'},
+            {eamil:'xxxx@163.com'}
+        ]
     },
     mutations: {
         login (state, payload) {

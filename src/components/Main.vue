@@ -9,7 +9,7 @@
     export default {
         methods: {
             login () {
-                this.$router.replace('/login')
+                this.$router.push('/login')
             },
         },
         computed: {
